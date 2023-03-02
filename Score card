@@ -1,0 +1,51 @@
+from tabulate import tabulate
+
+
+class ScoreCard:
+
+    def __init__(self, name, mark1, mark2, mark3):
+        self.name = name
+        self.sub1 = mark1
+        self.sub2 = mark2
+        self.sub3 = mark3
+
+    def total_marks(self):
+        return self.sub1 + self.sub2 + self.sub3
+
+    def grading(self, subg):
+        if 100 > subg >= 90:
+            return "A"
+        elif 90 > subg >= 80:
+            return "B"
+        elif 80 > subg >= 70:
+            return "C"
+        elif 70 > subg >= 60:
+            return "D"
+        else:
+            return "Fail"
+
+
+name = input("Enter the Students name:- ")
+sub1_name = input("Enter the 1st Subject Name:- ")
+sub2_name = input("Enter the 2nd Subject Name:- ")
+sub3_name = input("Enter the 3rd Subject Name:- ")
+
+sub1_mark = float(input(f"Enter {name} is got in {sub1_name}:-  "))
+sub2_mark = float(input(f"Enter {name} is got in {sub2_name}:-  "))
+sub3_mark = float(input(f"Enter {name} is got in {sub3_name}:-  "))
+
+stud = ScoreCard(name, sub1_mark, sub2_mark, sub3_mark)
+
+print(f"{name} got {stud.sub1} out of 100 in {sub1_name}"
+      f" and the grade is {stud.grading(stud.sub1)}")
+print(f"{name} got {stud.sub2} out of 100 in {sub2_name} "
+      f"and the grade is {stud.grading(stud.sub2)}")
+print(f"{name} got {stud.sub3} out of 100 in {sub3_name}"
+      f" and the grade is {stud.grading(stud.sub3)}")
+data = {
+    "Subjects Name": [sub1_name, sub2_name, sub3_name],
+    "Marks": [sub1_mark, sub2_mark, sub3_mark],
+    "Grades": [stud.grading(stud.sub1), stud.grading(stud.sub2), stud.grading(stud.sub3)]
+}
+print(f"{name}'s Scorecard:- ")
+print(tabulate(data, headers="keys", tablefmt="fancy_grid", showindex="always"))
